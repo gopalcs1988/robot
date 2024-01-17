@@ -1,2 +1,3 @@
 robotframework
 robotframework-seleniumlibrary
+chromedriver_installer
