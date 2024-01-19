@@ -18,7 +18,8 @@ jobs:
         - name: Docker build
           run: docker build -t grstest .
         - name: Docker run
-          run: docker run -v "$PWD/test":/qatest grstest
+          #run: docker run -v "$PWD/test":/qatest grstest
+          run: docker run grstest
 #        - uses: actions/cache@v2
 #          id: cache
 #          with:
