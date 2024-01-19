@@ -15,25 +15,29 @@ jobs:
       steps:
         - name: Checkout Repository
           uses: actions/checkout@v3
-        - uses: actions/cache@v2
-          id: cache
-          with:
-              path: ~/.cache/pip
-              key: ${{ runner.os }}-pip-${{ hashFiles('**/requirement.txt') }}
-        - name: Install pip dependencies
-          run: |
-            pip install --upgrade pip
-            pip install -r requirements.txt
-        #- name: Run Test
-        #  run: python -m robot --outputdir results Tests/
-        - name: Run Test and create report
-          run: python -m robot -d reports -x junit-report.xml "Tests/"
-        - name: Run Robot Framework tests and generate report
-          run: |
-            echo "ROBOT_RC=$?" >> "$GITHUB_ENV"
+        - name: Docker build
+          run: docker build -t grstest .
+        - name: Docker run
+          run: docker run grstest -v "$PWD/test":/qatest
+#        - uses: actions/cache@v2
+#          id: cache
+#          with:
+#              path: ~/.cache/pip
+#              key: ${{ runner.os }}-pip-${{ hashFiles('**/requirement.txt') }}
+#        - name: Install pip dependencies
+#          run: |
+#            pip install --upgrade pip
+#            pip install -r requirements.txt
+#        #- name: Run Test
+#        #  run: python -m robot --outputdir results Tests/
+#        - name: Run Test and create report
+#          run: python -m robot -d reports -x junit-report.xml "Tests/"
+#        - name: Run Robot Framework tests and generate report
+#          run: |
+#            echo "ROBOT_RC=$?" >> "$GITHUB_ENV"
 
         - name: Publish test results
           uses: actions/upload-artifact@v2
           with:
             name: robot-test-results
-            path: ${{ github.workspace }}/reports
+            path: ${{ github.workspace }}/test/reports
