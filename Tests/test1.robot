@@ -6,7 +6,8 @@ Library  SeleniumLibrary
 This is sample test case
     [Documentation]  Google test
     [Tags]  regression
-    Open Browser  http://www.google.com  chrome  options=add_argument("--headless");add_argument("--disable-gpu")
+    #Open Browser  http://www.google.com  chrome  options=add_argument("--headless");add_argument("--disable-gpu")
+    Open Browser  http://www.google.com  firefox
     Close Browser
 
 
