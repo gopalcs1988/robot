@@ -20,7 +20,7 @@ FROM python:3.6
 RUN apt-get update && apt-get install -y gnupg wget
 
 # Install Chrome
-ENV CHROME_VERSION=120.0.6099.109
+ENV CHROME_VERSION=120.0.6099.109-1
 RUN wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb
 RUN apt-get -y update
 RUN apt-get install -y ./google-chrome-stable_${CHROME_VERSION}_amd64.deb
