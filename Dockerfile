@@ -30,9 +30,10 @@ RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install Chromedriver
-COPY ./chrome/chromedriver /usr/bin/chromedriver
-RUN chmod a+x /usr/bin/chromedriver
-
+RUN wget -q --continue -P /chromedriver "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/$CHROME_VERSION/linux64/chromedriver-linux64.zip" && \
+    unzip /chromedriver/chromedriver* -d /usr/local/bin/chromedriver
+# COPY ./chrome/chromedriver /usr/bin/chromedriver
+RUN chmod a+x /usr/local/bin/chromedriver
 
 WORKDIR /qatest
 COPY ./Tests/ ./functionalTest
