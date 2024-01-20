@@ -33,9 +33,10 @@ RUN apt-get clean && \
 RUN wget -q --continue -P /chromedriver "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/120.0.6099.109/linux64/chromedriver-linux64.zip" && \
     unzip /chromedriver/chromedriver* -d /usr/local/bin/
 
-ENV PATH="/usr/local/bin/chromedriver-linux64:${PATH}"
+ENV PATH="/usr/local/bin/chromedriver-linux64/:${PATH}"
 # COPY ./chrome/chromedriver /usr/bin/chromedriver
-RUN chmod a+x /usr/local/bin/chromedriver-linux64/chromedriver
+#RUN chmod a+x /usr/local/bin/chromedriver-linux64/chromedriver
+RUN chmod 755 /usr/local/bin/chromedriver-linux64/chromedriver
 
 WORKDIR /qatest
 COPY ./Tests/ ./functionalTest
