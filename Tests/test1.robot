@@ -7,7 +7,7 @@ This is sample test case
     [Documentation]  Google test
     [Tags]  regression
 
-    Open Browser  http://www.google.com  chrome  options=add_argument("--headless");add_argument("--disable-gpu");add_argument("--disable-dev-shm-usage")  executable_path="/usr/local/bin/chromedriver"
+    Open Browser  http://www.google.com  chrome  options=add_argument("--headless");add_argument("--disable-gpu");add_argument("--disable-dev-shm-usage")  executable_path="/usr/local/bin/chromedriver-linux64/"
     #Open Browser  http://www.google.com  firefox  options=add_argument("--headless");add_argument("--disable-gpu")
     Close Browser
 
