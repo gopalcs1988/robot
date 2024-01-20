@@ -28,6 +28,7 @@ RUN wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signi
     rm -rf /var/lib/apt/lists/*
 
 # Install Chromedriver
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN wget --quiet -O /usr/bin/chromedriver https://chromedriver.storage.googleapis.com/$(wget -qO- https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver && \
     chmod +x /usr/bin/chromedriver
 
