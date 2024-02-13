@@ -19,7 +19,7 @@ jobs:
           run: docker build -t grstest .
         - name: Create reports folder
           run: |
-            mkdir $PWD/reports
+            mkdir $GITHUB_WORKSPACE/reports
             chmod -R 777 /reports
         - name: Docker run
           run: docker run -v $PWD/reports:/reports grstest
