@@ -50,6 +50,15 @@ RUN wget https://ftp.mozilla.org/pub/firefox/releases/$FIREFOXBROWSER_VERSION/li
    && ln -s /usr/bin/headless-firefox /usr/bin/firefox \
    && rm "firefox-$FIREFOXBROWSER_VERSION.tar.bz2"
 
+# Download and install GeckoDriver
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.33.0-linux64.tar.gz \
+    && tar -xvzf geckodriver-v0.33.0-linux64.tar.gz \
+    && mv geckodriver /usr/local/bin/
+
+ENV PATH /usr/local/bin/:$PATH
+
+RUN chmod 755 /usr/local/bin/geckodriver
+
 WORKDIR /qatest
 COPY ./Tests/ ./functionalTest
 COPY requirements.txt ./requirements.txt
