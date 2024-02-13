@@ -20,24 +20,35 @@ FROM python:3.6
 RUN apt-get update && apt-get install -y gnupg wget
 
 # Install Chrome
-ENV CHROME_VERSION=120.0.6099.109-1
-RUN wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb
-RUN apt-get -y update
-RUN apt-get install -y ./google-chrome-stable_${CHROME_VERSION}_amd64.deb
+# ENV CHROME_VERSION=120.0.6099.109-1
+# RUN wget -q https://dl.google.com/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_${CHROME_VERSION}_amd64.deb
+# RUN apt-get -y update
+# RUN apt-get install -y ./google-chrome-stable_${CHROME_VERSION}_amd64.deb
+#
+# # Clean up
+# RUN apt-get clean && \
+#     rm -rf /var/lib/apt/lists/*
+#
+# # Install Chromedriver
+# RUN wget -q --continue -P /chromedriver "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/120.0.6099.109/linux64/chromedriver-linux64.zip" && \
+#     unzip /chromedriver/chromedriver* -d /usr/local/bin/
+#
+# #ENV PATH="${PATH}:/usr/local/bin/chromedriver-linux64/"
+# ENV PATH /usr/local/bin/chromedriver-linux64:$PATH
+# # COPY ./chrome/chromedriver /usr/bin/chromedriver
+# #RUN chmod a+x /usr/local/bin/chromedriver-linux64/chromedriver
+# RUN chmod 755 /usr/local/bin/chromedriver-linux64/chromedriver
 
-# Clean up
-RUN apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+#Install Firefox
 
-# Install Chromedriver
-RUN wget -q --continue -P /chromedriver "https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/120.0.6099.109/linux64/chromedriver-linux64.zip" && \
-    unzip /chromedriver/chromedriver* -d /usr/local/bin/
+ENV FIREFOXBROWSER_VERSION 122.0
 
-#ENV PATH="${PATH}:/usr/local/bin/chromedriver-linux64/"
-ENV PATH /usr/local/bin/chromedriver-linux64:$PATH
-# COPY ./chrome/chromedriver /usr/bin/chromedriver
-#RUN chmod a+x /usr/local/bin/chromedriver-linux64/chromedriver
-RUN chmod 755 /usr/local/bin/chromedriver-linux64/chromedriver
+RUN wget https://ftp.mozilla.org/pub/firefox/releases/$FIREFOXBROWSER_VERSION/linux-x86_64/en-US/firefox-$FIREFOXBROWSER_VERSION.tar.bz2 \
+   && tar -xjf "firefox-$FIREFOXBROWSER_VERSION.tar.bz2" \
+   && mv firefox /opt/firefox \
+   && ln -s /opt/firefox/firefox /usr/bin/firefox-browser \
+   && ln -s /usr/bin/headless-firefox /usr/bin/firefox \
+   && rm "firefox-$FIREFOXBROWSER_VERSION.tar.bz2"
 
 WORKDIR /qatest
 COPY ./Tests/ ./functionalTest
