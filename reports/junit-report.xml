@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="Tests" tests="1" errors="0" failures="0" skipped="0" time="2.292" timestamp="2024-01-18T00:18:12.145303">
-<testsuite name="Test1" tests="1" errors="0" failures="0" skipped="0" time="2.284" timestamp="2024-01-18T00:18:12.153091">
-<testcase classname="Tests.Test1" name="This is sample test case" time="2.238">
-</testcase>
-</testsuite>
-</testsuite>
