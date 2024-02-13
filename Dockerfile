@@ -43,12 +43,14 @@ RUN apt-get update && apt-get install -y gnupg wget
 
 ENV FIREFOXBROWSER_VERSION 122.0
 
-RUN wget https://ftp.mozilla.org/pub/firefox/releases/$FIREFOXBROWSER_VERSION/linux-x86_64/en-US/firefox-$FIREFOXBROWSER_VERSION.tar.bz2 \
-   && tar -xjf "firefox-$FIREFOXBROWSER_VERSION.tar.bz2" \
-   && mv firefox /opt/firefox \
-   && ln -s /opt/firefox/firefox /usr/bin/firefox-browser \
-   && ln -s /usr/bin/headless-firefox /usr/bin/firefox \
-   && rm "firefox-$FIREFOXBROWSER_VERSION.tar.bz2"
+# RUN wget https://ftp.mozilla.org/pub/firefox/releases/$FIREFOXBROWSER_VERSION/linux-x86_64/en-US/firefox-$FIREFOXBROWSER_VERSION.tar.bz2 \
+#    && tar -xjf "firefox-$FIREFOXBROWSER_VERSION.tar.bz2" \
+#    && mv firefox /opt/firefox \
+#    && ln -s /opt/firefox/firefox /usr/bin/firefox-browser \
+#    && ln -s /usr/bin/headless-firefox /usr/bin/firefox \
+#    && rm "firefox-$FIREFOXBROWSER_VERSION.tar.bz2"
+
+RUN apt-get install -y firefox-esr
 
 # Download and install GeckoDriver
 RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz \
