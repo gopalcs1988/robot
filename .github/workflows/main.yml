@@ -18,7 +18,7 @@ jobs:
         - name: Docker build
           run: docker build -t grstest .
         - name: Docker run
-          run: docker run -v $PWD/test:/reports grstest
+          run: docker run -v ./reports:/reports grstest
           #run: docker run grstest
 #        - uses: actions/cache@v2
 #          id: cache
@@ -41,4 +41,4 @@ jobs:
           uses: actions/upload-artifact@v2
           with:
             name: robot-test-results
-            path: ${{ github.workspace }}/test/*
+            path: ./reports/*
