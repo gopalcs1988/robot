@@ -51,7 +51,7 @@ RUN wget https://ftp.mozilla.org/pub/firefox/releases/$FIREFOXBROWSER_VERSION/li
    && rm "firefox-$FIREFOXBROWSER_VERSION.tar.bz2"
 
 # Download and install GeckoDriver
-RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.30.0/geckodriver-v0.33.0-linux64.tar.gz \
+RUN wget https://github.com/mozilla/geckodriver/releases/download/v0.33.0/geckodriver-v0.33.0-linux64.tar.gz \
     && tar -xvzf geckodriver-v0.33.0-linux64.tar.gz \
     && mv geckodriver /usr/local/bin/
 
