@@ -77,4 +77,6 @@ RUN chown -R jenkins:jenkins \
 
 USER jenkins
 
-CMD ["python", "-m", "robot", "-d", "/reports", "-x", "junit-report.xml", "/qatest/functionalTest/"]
+#CMD ["python", "-m", "robot", "-d", "/reports", "-x", "junit-report.xml", "/qatest/functionalTest/"]
+CMD python -m robot -d /reports -x junit-report.xml /qatest/functionalTest/ && \
+    rebot --output /reports/output.json /reports/output.xml
