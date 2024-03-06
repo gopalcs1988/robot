@@ -22,7 +22,9 @@ jobs:
             mkdir ./reports
             chmod -R 777 ./reports
         - name: Docker run
-          run: docker run -v ./reports:/reports grstest
+          run: |
+            docker run -v ./reports:/reports grstest
+            chmod -R 777 ./reports
         - name: Convert XML to JSON
           uses: actions/setup-node@v2
           with:
