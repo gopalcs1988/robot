@@ -30,7 +30,9 @@ jobs:
         - name: Install dependencies
           run: npm install xml2json
         - name: Run conversion script
-          run: node ./convert.js
+          run: |
+            npm install xml2js
+            node ./convert.js
         - name: Publish JSON results
           uses: actions/upload-artifact@v2
           with:
