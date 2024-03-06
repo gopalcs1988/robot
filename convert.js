@@ -20,7 +20,13 @@ parseString(xmlData, (err, result) => {
     // Extract start and end times of the test suite execution
     const startTime = new Date(result.robot.$.generated);
     const endTime = new Date(result.robot.statistics[0].total[0].stat[0].$.endtime);
-    const executionTime = (endTime - startTime) / 1000; // Convert to seconds
+    const executionTimeInSeconds = Math.floor((endTime - startTime) / 1000); // Convert to seconds
+
+    const hours = Math.floor(executionTimeInSeconds / 3600);
+    const minutes = Math.floor((executionTimeInSeconds % 3600) / 60);
+    const seconds = executionTimeInSeconds % 60;
+
+    const executionTimeString = `${hours}h${minutes}m${seconds}s`;
 
     result.robot.suite.forEach(suite => {
         suite.suite.forEach(testSuite => {
@@ -48,7 +54,7 @@ parseString(xmlData, (err, result) => {
 
     // Create a folder structure with current date and total execution time
     const currentDate = new Date().toISOString().split('T')[0];
-    const folderPath = `./reports/${currentDate}/${executionTime}s`;
+    const folderPath = `./reports/${currentDate}/${executionTimeString}`;
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true });
     }
