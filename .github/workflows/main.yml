@@ -28,7 +28,9 @@ jobs:
           with:
             node-version: '20'
         - name: Install dependencies
-          run: npm install xml2json
+          run: |
+            npm install xml2json
+            ls -la
         - name: Run conversion script
           run: |
             npm install xml2js
