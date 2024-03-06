@@ -5,6 +5,20 @@ const { parseString } = require('xml2js');
 const xmlFilePath = './reports/output.xml';
 const xmlData = fs.readFileSync(xmlFilePath, 'utf8');
 
+function parseCustomDateFormat(dateString) {
+    // Extract date components
+    const year = dateString.slice(0, 4);
+    const month = dateString.slice(4, 6);
+    const day = dateString.slice(6, 8);
+    const time = dateString.slice(9);
+
+    // Construct a valid date string
+    const validDateString = `${year}-${month}-${day}T${time}Z`;
+    
+    // Return the date object
+    return new Date(validDateString);
+}
+
 // Parse XML to JSON
 parseString(xmlData, (err, result) => {
     if (err) {
@@ -43,9 +57,9 @@ parseString(xmlData, (err, result) => {
                     zip: '' // Set zip according to your requirements
                 };
                 if (suiteIndex === 0 && testIndex === 0) {
-                    firstTestStartTime = test.status[0].$.starttime
+                    firstTestStartTime = parseCustomDateFormat(test.status[0].$.starttime)
                 }
-                lastTestEndTime = test.status[0].$.endtime
+                lastTestEndTime = parseCustomDateFormat(test.status[0].$.endtime)
             });
         });
     });
