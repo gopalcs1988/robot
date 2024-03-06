@@ -51,7 +51,7 @@ parseString(xmlData, (err, result) => {
     });
 
     // Calculate elapsed time in seconds
-    const elapsedTimeInSeconds = Math.floor(+new Date(lastTestEndTime) - +new Date(firstTestStartTime)) / 1000);
+    const elapsedTimeInSeconds = Math.floor((+new Date(lastTestEndTime) - +new Date(firstTestStartTime)) / 1000);
 
     const hours = Math.floor(elapsedTimeInSeconds / 3600);
     const minutes = Math.floor((elapsedTimeInSeconds % 3600) / 60);
