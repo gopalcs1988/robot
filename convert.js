@@ -17,6 +17,11 @@ parseString(xmlData, (err, result) => {
         scripts: {}
     };
 
+    // Extract start and end times of the test suite execution
+    const startTime = new Date(result.robot.$.generated);
+    const endTime = new Date(result.robot.statistics[0].total[0].stat[0].$.endtime);
+    const executionTime = (endTime - startTime) / 1000; // Convert to seconds
+
     result.robot.suite.forEach(suite => {
         suite.suite.forEach(testSuite => {
             testSuite.test.forEach(test => {
@@ -41,8 +46,15 @@ parseString(xmlData, (err, result) => {
         });
     });
 
-    // Write JSON to file
-    const jsonFilePath = './reports/output.json';
+    // Create a folder structure with current date and total execution time
+    const currentDate = new Date().toISOString().split('T')[0];
+    const folderPath = `./reports/${currentDate}/${executionTime}s`;
+    if (!fs.existsSync(folderPath)) {
+        fs.mkdirSync(folderPath, { recursive: true });
+    }
+
+    // Write JSON to file inside the folder
+    const jsonFilePath = `${folderPath}/output.json`;
     fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 4));
 
     console.log('Conversion completed. JSON file saved.');
