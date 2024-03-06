@@ -54,7 +54,7 @@ parseString(xmlData, (err, result) => {
     }
 
     // Write JSON to file inside the folder
-    const jsonFilePath = `${folderPath}/output.json`;
+    const jsonFilePath = `${folderPath}/feature.json`;
     fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 4));
 
     console.log('Conversion completed. JSON file saved.');
