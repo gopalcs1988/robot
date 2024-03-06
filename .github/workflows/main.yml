@@ -29,8 +29,6 @@ jobs:
             node-version: '20'
         - name: Install dependencies
           run: npm install xml2json
-        - name: Set permissions for reports directory
-          run: chmod -R 777 ./reports
         - name: Run conversion script
           run: |
             npm install xml2js
