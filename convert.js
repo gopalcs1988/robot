@@ -50,6 +50,9 @@ parseString(xmlData, (err, result) => {
         });
     });
 
+    console.log('First Test Start Time:', firstTestStartTime);
+    console.log('Last Test End Time:', lastTestEndTime);
+
     // Calculate elapsed time in seconds
     const elapsedTimeInSeconds = Math.floor((+new Date(lastTestEndTime) - +new Date(firstTestStartTime)) / 1000);
 
@@ -57,9 +60,12 @@ parseString(xmlData, (err, result) => {
     const minutes = Math.floor((elapsedTimeInSeconds % 3600) / 60);
     const seconds = elapsedTimeInSeconds % 60;
     const executionTimeString = `${hours}h${minutes}m${seconds}s`;
+
+    console.log('Execution Time String:', executionTimeString);
     
     // Create a folder structure with current date and total execution time
     const currentDate = new Date().toISOString().split('T')[0];
+    console.log('Current Date:', currentDate);
     const folderPath = `./reports/${currentDate}/${executionTimeString}`;
     if (!fs.existsSync(folderPath)) {
         fs.mkdirSync(folderPath, { recursive: true });
