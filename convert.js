@@ -42,7 +42,7 @@ parseString(xmlData, (err, result) => {
     });
 
     // Write JSON to file
-    const jsonFilePath = './output.json';
+    const jsonFilePath = './reports/output.json';
     fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 4));
 
     console.log('Conversion completed. JSON file saved.');
