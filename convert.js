@@ -17,20 +17,14 @@ parseString(xmlData, (err, result) => {
         scripts: {}
     };
 
-    // Extract start and end times of the test suite execution
-    const startTime = new Date(result.robot.$.generated);
-    const endTime = new Date(result.robot.statistics[0].total[0].stat[0].$.endtime);
-    const executionTimeInSeconds = Math.floor((endTime - startTime) / 1000); // Convert to seconds
-
-    const hours = Math.floor(executionTimeInSeconds / 3600);
-    const minutes = Math.floor((executionTimeInSeconds % 3600) / 60);
-    const seconds = executionTimeInSeconds % 60;
-
-    const executionTimeString = `${hours}h${minutes}m${seconds}s`;
-
-    result.robot.suite.forEach(suite => {
+    // Extract start time of the first test
+    let firstTestStartTime;
+    // Extract end time of the last test
+    let lastTestEndTime;
+    
+    result.robot.suite.forEach((suite, suiteIndex) => {
         suite.suite.forEach(testSuite => {
-            testSuite.test.forEach(test => {
+            testSuite.test.forEach((test, testIndex) => {
                 const testName = test.$.name;
                 const status = test.status[0].$.status;
                 const owner = 'RA'; // Set owner according to your requirements
@@ -48,10 +42,22 @@ parseString(xmlData, (err, result) => {
                     end_timestamp: test.status[0].$.endtime,
                     zip: '' // Set zip according to your requirements
                 };
+                if (suiteIndex === 0 && testIndex === 0) {
+                    firstTestStartTime = test.status[0].$.starttime
+                }
+                lastTestEndTime = test.status[0].$.endtime
             });
         });
     });
 
+    // Calculate elapsed time in seconds
+    const elapsedTimeInSeconds = Math.floor(+new Date(lastTestEndTime) - +new Date(firstTestStartTime)) / 1000);
+
+    const hours = Math.floor(elapsedTimeInSeconds / 3600);
+    const minutes = Math.floor((elapsedTimeInSeconds % 3600) / 60);
+    const seconds = elapsedTimeInSeconds % 60;
+    const executionTimeString = `${hours}h${minutes}m${seconds}s`;
+    
     // Create a folder structure with current date and total execution time
     const currentDate = new Date().toISOString().split('T')[0];
     const folderPath = `./reports/${currentDate}/${executionTimeString}`;
@@ -60,7 +66,7 @@ parseString(xmlData, (err, result) => {
     }
 
     // Write JSON to file inside the folder
-    const jsonFilePath = `${folderPath}/feature.json`;
+    const jsonFilePath = `${folderPath}/output.json`;
     fs.writeFileSync(jsonFilePath, JSON.stringify(jsonData, null, 4));
 
     console.log('Conversion completed. JSON file saved.');
