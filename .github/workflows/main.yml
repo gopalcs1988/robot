@@ -23,7 +23,7 @@ jobs:
             chmod -R 777 ./reports
         - name: Docker run
           run:  docker run -v ./reports:/reports grstest
-        - name: Convert XML to JSON
+        - name: Node installation
           uses: actions/setup-node@v2
           with:
             node-version: '20'
@@ -33,15 +33,10 @@ jobs:
             ls -la
             cd reports
             ls -la
-        - name: Run conversion script
+        - name: Convert XML to JSON
           run: |
             npm install xml2js
             node ./convert.js
-        - name: Publish JSON results
-          uses: actions/upload-artifact@v2
-          with:
-            name: robot-test-results-json
-            path: ./reports/output.json
         - name: Publish test results
           uses: actions/upload-artifact@v2
           with:
