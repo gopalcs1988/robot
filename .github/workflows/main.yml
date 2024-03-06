@@ -23,11 +23,6 @@ jobs:
             chmod -R 777 ./reports
         - name: Docker run
           run: docker run -v ./reports:/reports grstest
-        - name: Publish test results
-          uses: actions/upload-artifact@v2
-          with:
-            name: robot-test-results
-            path: ./reports/*
         - name: Convert XML to JSON
           uses: actions/setup-node@v2
           with:
@@ -41,3 +36,9 @@ jobs:
           with:
             name: robot-test-results-json
             path: ./reports/output.json
+        - name: Publish test results
+          uses: actions/upload-artifact@v2
+          with:
+            name: robot-test-results
+            path: ./reports/*
+
