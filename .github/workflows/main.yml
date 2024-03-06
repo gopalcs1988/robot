@@ -31,6 +31,8 @@ jobs:
           run: |
             npm install xml2json
             ls -la
+            cd reports
+            ls -la
         - name: Run conversion script
           run: |
             npm install xml2js
